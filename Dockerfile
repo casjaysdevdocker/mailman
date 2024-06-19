@@ -22,8 +22,8 @@ ARG IMAGE_REPO="casjaysdevdocker/mailman"
 ARG IMAGE_VERSION="latest"
 ARG CONTAINER_VERSION=""
 
-ARG PULL_URL="casjaysdev/debian"
-ARG DISTRO_VERSION="${IMAGE_VERSION}"
+ARG PULL_URL="debian"
+ARG DISTRO_VERSION="buster"
 ARG BUILD_VERSION="${BUILD_DATE}"
 
 FROM tianon/gosu:latest AS gosu
@@ -46,8 +46,7 @@ ARG DEFAULT_TEMPLATE_DIR
 ARG DISTRO_VERSION
 ARG PHP_VERSION
 
-ARG PACK_LIST="bash mailman3-full exim4 apache2 apache2-data apache2-utils curl \
-  "
+ARG PACK_LIST="bash mailman exim4 apache2 apache2-data apache2-utils curl wget tini"
 
 ENV ENV=~/.bashrc
 ENV SHELL="/bin/sh"

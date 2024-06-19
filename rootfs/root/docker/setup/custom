@@ -16,3 +16,5 @@ cp -Rf /root/docker/conf/update-exim4.conf.conf /etc/exim4/update-exim4.conf.con
 cp -Rf /root/docker/conf/mm_cfg.py /etc/mailman/mm_cfg.py
 cp -Rf /root/docker/conf/mailman.conf /etc/apache2/sites-available/
 cp -Rf /root/docker/conf/aliases /etc/aliases
+
+a2enmod proxy_uwsgi
