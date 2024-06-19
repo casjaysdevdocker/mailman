@@ -1,0 +1,26 @@
+for d in /var/log/mailman /var/log/exim4 /var/log/apache2 /var/spool /var/lib/mailman/archives /var/lib/mailman/lists; do
+  rm -Rf "$d"
+done
+
+[ -d "/data/logs/exim4" ] || mkdir -p "/data/logs/exim4"
+[ -d "/data/logs/apache2" ] || mkdir -p "/data/logs/apache2"
+[ -d "/data/logs/mailman" ] || mkdir -p "/data/logs/mailman"
+[ -d "/data/mailman/spool" ] || mkdir -p "/data/mailman/spool"
+[ -d "/data/mailman/archives" ] || mkdir -p "/data/mailman/lists"
+[ -d "/data/mailman/archives" ] || mkdir -p "/data/mailman/archives"
+
+[ -d "/config/mailman" ] || mkdir -p "/config/mailman"
+
+ln -sf "/data/logs/exim4" "/var/log/exim4"
+ln -sf "/data/logs/apache2" "/var/log/apache2"
+ln -sf "/data/logs/mailman" "/var/log/mailman"
+
+ln -sf "/data/mailman/spool" "/var/spool"
+ln -sf "/data/mailman/lists" "/var/lib/mailman/lists"
+ln -sf "/data/mailman/archives" "/var/lib/mailman/archives"
+
+if [ -f "/config/mailman/mm_cfg.py" ]; then
+  cp -Rf "/config/mailman/mm_cfg.py" "/etc/mailman/mm_cfg.py"
+else
+  (sleep 300 && cp -Rf "/etc/mailman/mm_cfg.py" "/config/mailman/mm_cfg.py") &
+fi
