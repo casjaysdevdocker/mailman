@@ -1,0 +1,14 @@
+DKIM_CANON = relaxed
+DKIM_SELECTOR = listsdkim
+DKIM_DOMAIN = lists.example.com
+DKIM_PRIVATE_KEY = /etc/exim4/tls.d/private.pem
+smtp_banner = lists.example.com
+REMOTE_SMTP_HELO_DATA = lists.example.com
+MAIN_TLS_ENABLE = true
+REMOTE_SMTP_SMARTHOST_HOSTS_REQUIRE_TLS = *
+# DAEMON_SMTP_PORTS and TLS_ON_CONNECT_PORTS var need to be lowercase
+daemon_smtp_ports = 25 : 465 : 587
+tls_on_connect_ports = 465 : 587
+# Declare the official primary_hostname to reduce container level complexity
+MAIN_HARDCODE_PRIMARY_HOSTNAME = lists.example.com
+#CHECK_RCPT_SPF = true

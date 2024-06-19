@@ -22,7 +22,7 @@ ARG IMAGE_REPO="casjaysdevdocker/mailman"
 ARG IMAGE_VERSION="latest"
 ARG CONTAINER_VERSION=""
 
-ARG PULL_URL="d3fk/mailman2"
+ARG PULL_URL="casjaysdev/debian"
 ARG DISTRO_VERSION="${IMAGE_VERSION}"
 ARG BUILD_VERSION="${BUILD_DATE}"
 
@@ -46,7 +46,7 @@ ARG DEFAULT_TEMPLATE_DIR
 ARG DISTRO_VERSION
 ARG PHP_VERSION
 
-ARG PACK_LIST="bash bash-completion git curl wget sudo unzip tini xz-utils iproute2 locales procps net-tools bsd-mailx \
+ARG PACK_LIST="bash mailman exim4 apache2 apache2-data apache2-utils curl \
   "
 
 ENV ENV=~/.bashrc

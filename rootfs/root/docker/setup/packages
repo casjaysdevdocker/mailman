@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+apt-get update &&
+  apt-get -y upgrade &&
+  apt-get install -y mailman exim4 apache2 apache2-data apache2-utils curl &&
+  apt-get remove -y --purge --autoremove mariadb-common mysql-common bzip2 &&
+  apt-get clean &&
+  rm -rf /var/lib/apt/lists/* &&
+  echo "ServerName $URL_HOST" >>/etc/apache2/apache2.conf &&
+  echo "tls_require_ciphers = NORMAL:-VERS-SSL3.0:-VERS-TLS1.0:-VERS-TLS1.1" >/etc/exim4/conf.d/main/00_exim4-config_tlsversions
+
+cp -Rf /root/docker/conf/00_local_macros /etc/exim4/conf.d/main/
+cp -Rf /root/docker/conf/04_mailman_options /etc/exim4/conf.d/main/
+cp -Rf /root/docker/conf/450_mailman_aliases /etc/exim4/conf.d/router/
+cp -Rf /root/docker/conf/40_mailman_pipe /etc/exim4/conf.d/transport/
+cp -Rf /root/docker/conf/update-exim4.conf.conf /etc/exim4/update-exim4.conf.conf
+cp -Rf /root/docker/conf/mm_cfg.py /etc/mailman/mm_cfg.py
+cp -Rf /root/docker/conf/mailman.conf /etc/apache2/sites-available/
+cp -Rf /root/docker/conf/aliases /etc/aliases
