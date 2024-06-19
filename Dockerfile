@@ -82,7 +82,7 @@ RUN set -ex; \
 
 RUN \
   set -ex; \
-  mkdir -p /tmp && apt-get update; \
+  mkdir -p /tmp && chmod 777 /tmp && apt-get update; \
   if [ -n "${PACK_LIST}" ];then echo "Installing packages: $PACK_LIST";pkmgr install ${PACK_LIST};fi; \
   echo ""
 
