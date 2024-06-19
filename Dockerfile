@@ -46,7 +46,7 @@ ARG DEFAULT_TEMPLATE_DIR
 ARG DISTRO_VERSION
 ARG PHP_VERSION
 
-ARG PACK_LIST="bash mailman exim4 apache2 apache2-data apache2-utils curl \
+ARG PACK_LIST="bash mailman3-full exim4 apache2 apache2-data apache2-utils curl \
   "
 
 ENV ENV=~/.bashrc
