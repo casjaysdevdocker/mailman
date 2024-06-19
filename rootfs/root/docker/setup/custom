@@ -2,6 +2,7 @@
 
 apt-get update &&
   apt-get -y upgrade &&
+  apt-get install -yy mailman exim4 apache2 apache2-data apache2-utils &&
   apt-get remove -y --purge --autoremove mariadb-common mysql-common bzip2 &&
   apt-get clean &&
   rm -rf /var/lib/apt/lists/* &&

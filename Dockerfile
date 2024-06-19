@@ -46,7 +46,7 @@ ARG DEFAULT_TEMPLATE_DIR
 ARG DISTRO_VERSION
 ARG PHP_VERSION
 
-ARG PACK_LIST="bash mailman exim4 apache2 apache2-data apache2-utils curl wget tini"
+ARG PACK_LIST="bash locales curl wget tini"
 
 ENV ENV=~/.bashrc
 ENV SHELL="/bin/sh"
@@ -63,7 +63,12 @@ COPY ./rootfs/usr/local/bin/pkmgr /usr/local/bin/pkmgr
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 
 RUN \
+  echo "Creating and editing system files "; \
   set -ex; \
+  mkdir -p "${DEFAULT_DATA_DIR}" "${DEFAULT_CONF_DIR}" "${DEFAULT_TEMPLATE_DIR}" "/root/docker/setup" "/etc/profile.d"; \
+  echo 'export DEBIAN_FRONTEND="'${DEBIAN_FRONTEND}'"' >"/etc/profile.d/apt.sh" && chmod 755 "/etc/profile.d/apt.sh"; \
+  pkmgr update && pkmgr install locales && echo "$LANG UTF-8" >"/etc/locale.gen"; \
+  dpkg-reconfigure --frontend=noninteractive locales;update-locale LANG=$LANG; \
   echo ""
 
 RUN \
@@ -118,8 +123,6 @@ RUN \
 
 RUN set -ex \
   echo "Custom Settings"; \
-  [ -d "/usr/local/etc/docker/init.d" ] || mkdir -p "/usr/local/etc/docker/init.d" \
-  [ ! -f "/run.sh" ] || mv -f "/run.sh" "/usr/local/etc/docker/init.d/mailman.sh" \
   echo ""
 
 RUN \
