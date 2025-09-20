@@ -28,6 +28,18 @@ if [ ! -f started ]; then
   chown -R list:list /var/lib/mailman/
 
   #Create docroot
+# Function to exit appropriately based on context
+__script_exit() {
+  local exit_code="${1:-0}"
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+    # Script is being sourced - use return
+    return "$exit_code"
+  else
+    # Script is being executed - use exit
+    exit "$exit_code"
+  fi
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   mkdir /var/www/lists
   echo "<html><h2>Welcome to ${URL_HOST}</h2></html>" >/var/www/lists/index.html
 
