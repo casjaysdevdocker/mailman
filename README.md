@@ -19,17 +19,17 @@ dockermgr update mailman
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/mailman/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/mailman/volumes"
 git clone "https://github.com/dockermgr/mailman" "$HOME/.local/share/CasjaysDev/dockermgr/mailman"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/mailman/rootfs/." "$HOME/.local/share/srv/docker/mailman/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/mailman/rootfs/." "$HOME/.local/share/srv/docker/mailman/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-mailman \
 --hostname mailman \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/rootfs/config:/config:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/volumes/data:/data:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/volumes/config:/config:z" \
 -p 80:80 \
 casjaysdevdocker/mailman:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=mailman
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/rootfs/config:/config:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/volumes/data:/data:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-mailman/volumes/config:/config:z"
     ports:
       - 80:80
     restart: always
